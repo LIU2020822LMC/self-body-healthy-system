@@ -4,13 +4,13 @@
     <div class="login-panel">
       <!-- 左侧图片区域 -->
       <div class="illustration">
-        <img src="/bag.png" alt="健康生活" class="illustration-img" />
+        <img src="/bag2.png" alt="健康生活" class="illustration-img" />
       </div>
 
       <!-- 右侧登录表单 -->
       <div class="right-login">
         <div class="login-header">
-          <h2>个人健康系统</h2>
+          <h2>个人身体健康系统</h2>
           <p class="welcome-text">记录健康，享受生活</p>
         </div>
 
@@ -19,7 +19,12 @@
         </div>
 
         <div class="input-group">
-          <input v-model="password" class="login-input" type="password" placeholder="输入密码" />
+          <input
+            v-model="password"
+            class="login-input"
+            type="password"
+            placeholder="输入密码"
+          />
         </div>
 
         <div class="button-group">
@@ -29,7 +34,11 @@
         </div>
 
         <div class="login-footer">
-          <p>没有账号？<span class="register-link" @click="toDoRegister">点此注册</span></p>
+          <p>
+            没有账号？<span class="register-link" @click="toDoRegister"
+              >点此注册</span
+            >
+          </p>
         </div>
       </div>
     </div>
@@ -43,37 +52,41 @@ export default {
   name: "Login",
   data() {
     return {
-      account: '',
-      password: ''
-    }
+      account: "",
+      password: ""
+    };
   },
   methods: {
     toDoRegister() {
-      this.$router.push('/register');
+      this.$router.push("/register");
     },
 
     async login() {
       if (!this.account || !this.password) {
-        this.$message.info('账号与密码不能为空哦');
+        this.$message.info("账号与密码不能为空哦");
         return;
       }
 
       const bcryptPassword = this.$md5(this.$md5(this.password));
       const userLoginDto = { account: this.account, password: bcryptPassword };
       try {
-        const { data, message } = await this.$axios.post(`user/login`, userLoginDto);
+        // eslint-disable-next-line no-unused-vars
+        const { data, message } = await this.$axios.post(
+          `user/login`,
+          userLoginDto
+        );
         setToken(data.token);
         setRole(data.role);
         if (data.role === 1) {
-          this.$router.push('/admin');
+          this.$router.push("/admin");
         } else if (data.role === 2) {
-          this.$router.push('/user');
+          this.$router.push("/user");
         }
       } catch (error) {
-        console.error('登录异常:', error);
+        console.error("登录异常:", error);
         this.$message.error(error.message);
       }
-    },
+    }
   }
 };
 </script>
@@ -82,7 +95,7 @@ export default {
 * {
   user-select: none;
   box-sizing: border-box;
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-family: "Poppins", "Segoe UI", sans-serif;
 }
 
 .login-container {
@@ -110,7 +123,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgb(71, 202, 112);
+      background-color: rgb(175, 225, 249);
 
       .illustration-img {
         width: 100%;
@@ -130,7 +143,7 @@ export default {
         margin-bottom: 30px;
 
         h2 {
-          color: rgb(10, 107, 41);
+          color: rgb(21, 133, 219);
           font-size: 28px;
           font-weight: 600;
           margin-bottom: 8px;
@@ -178,7 +191,7 @@ export default {
           justify-content: center;
           width: 100%;
           height: 50px;
-          background-color: rgb(71, 202, 112);
+          background-color: rgb(38, 157, 212);
           color: white;
           border: none;
           border-radius: 8px;
@@ -188,7 +201,7 @@ export default {
           padding: 0 25px;
 
           &:hover {
-            background-color: rgb(66, 191, 105);
+            background-color: rgb(5, 158, 229);
           }
         }
       }
@@ -202,7 +215,7 @@ export default {
           font-size: 14px;
 
           .register-link {
-            color: #2d6a4f;
+            color: #359bc0;
             font-weight: 500;
             cursor: pointer;
 
